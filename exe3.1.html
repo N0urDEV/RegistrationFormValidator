@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire d'inscription</title>
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h2>Formulaire d'inscription</h2>
+    <form id="registrationForm">
+        <label for="nom">Nom :</label>
+        <input type="text" id="nom" name="nom"><br>
+        <span id="nomError" class="error"></span><br>
+
+        <label for="email">Email :</label>
+        <input type="text" id="email" name="email"><br>
+        <span id="emailError" class="error"></span><br>
+
+        <label for="telephone">Téléphone :</label>
+        <input type="text" id="telephone" name="telephone"><br>
+        <span id="telephoneError" class="error"></span><br>
+
+        <label for="password">Mot de passe :</label>
+        <input type="password" id="password" name="password"><br>
+        <span id="passwordError" class="error"></span><br>
+
+        <button type="submit">S'inscrire</button>
+    </form>
+
+    <script>
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
+            event.preventDefault(); 
+
+            let isValid = true;
+
+            const nom = document.getElementById('nom').value;
+            const nomError = document.getElementById('nomError');
+            if (nom.length < 3) {
+                nomError.textContent = 'Nom doit contenir au moins 3 caractères.';
+                isValid = false;
+            } else {
+                nomError.textContent = '';
+            }
+
+            const email = document.getElementById('email').value;
+            const emailError = document.getElementById('emailError');
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                emailError.textContent = 'Email doit être au format valide (exemple@example.com).';
+                isValid = false;
+            } else {
+                emailError.textContent = '';
+            }
+
+            const telephone = document.getElementById('telephone').value;
+            const telephoneError = document.getElementById('telephoneError');
+            const telephonePattern = /^\d{10}$/;
+            if (!telephonePattern.test(telephone)) {
+                telephoneError.textContent = 'Téléphone doit contenir exactement 10 chiffres.';
+                isValid = false;
+            } else {
+                telephoneError.textContent = '';
+            }
+
+            const password = document.getElementById('password').value;
+            const passwordError = document.getElementById('passwordError');
+            if (password.length < 6) {
+                passwordError.textContent = 'Mot de passe doit contenir au moins 6 caractères.';
+                isValid = false;
+            } else {
+                passwordError.textContent = '';
+            }
+
+            if (isValid) {
+                alert('Le formulaire a été soumis avec succès.');
+                document.getElementById('registrationForm').reset(); 
+            }
+        });
+    </script>
+</body>
+</html>
